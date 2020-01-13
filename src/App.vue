@@ -7,16 +7,23 @@
         </div>
         <div class="filter">
             <label for="filter"><b>Filtrar por email:</b></label>
-            <select name="" id="filter">
+            <select name="" id="filter" v-model="filter">
               <option value="">Todos</option>
+              <option v-for="domain in domains" v-bind:key= domain>{{domain}}</option>
             </select>
+            {{teste}}
         </div>
       </div>
     </header>
     <section class="list-contacts">
       <div class="content">
-        <ContactCard v-for="contact in contacts" v-bind:key= contact.id
-          v-bind:name= "contact.name"
+        <ContactCard v-for="contact in filteredContacts" v-bind:key= contact.id
+          :name= "contact.name"
+          :username = "contact.username"
+          :email = "contact.email"
+          :phone = "contact.phone"
+          :website = "contact.website"
+          :address = "contact.address" 
         ></ContactCard>
       </div>
     </section>
@@ -33,8 +40,10 @@ export default {
   data() {
     return {
       loading: true,
+      error: false,
       contacts: [],
-      domains: null
+      domains: null,
+      filter: ''
     }
   },
   methods: {
@@ -42,20 +51,29 @@ export default {
       axios
       .get('http://jsonplaceholder.typicode.com/users')
       .then(response => {
-        /* eslint-disable no-console */
-        console.log(response.data);
-        /* eslint-enable no-console */
-        this.contacts = response.data
+        this.contacts = response.data;
+        let allDomains = response.data.map(function(contact) {
+          return contact.email.split('.').pop();
+        });
+        let uniqueDomains = [...new Set(allDomains)];
+        this.domains = uniqueDomains;
+
       })
-      // .catch(error => {
-      //   console.log(error)
-      //   //this.errored = true
-      // })
+      .catch(() => {
+        this.error = true
+      })
       .finally(() => this.loading = false)
     }
   },
   created() {
     this.getContacts();
+  },
+  computed: {
+    filteredContacts: function () {
+      return this.contacts.filter( (contact) => {
+        return contact.email.match(this.filter);
+      })
+    }
   },
   components: {
     ContactCard
@@ -87,5 +105,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.list-contacts .content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 </style>
