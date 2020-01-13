@@ -99,6 +99,7 @@ body {
   background: linear-gradient(45deg, #1e73aa 0%, #23a5fa 100%);
 }
 .header-site .content {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 15px 0;
@@ -106,10 +107,30 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+.header-site select {
+  background-color: #ffffff;
+  border: 0;
+  padding: 10px 5px;
+  border-radius: 5px;
+}
 .list-contacts .content {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-top: 20px;
+}
+@media (max-width: 768px) 
+{
+  .list-contacts .content {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 425px) 
+{
+  .list-contacts .content {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
