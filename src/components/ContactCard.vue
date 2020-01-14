@@ -2,11 +2,11 @@
   <address class="card">
     <h1 class="card-header">{{ name }}</h1>
     <ul>
-      <li>{{ username }}</li>
-      <li>{{ email }}</li>
-      <li>{{ phone }}</li>
-      <li>{{ website }}</li>
-      <li>{{ address.street }}, {{ address.suite }}, {{ address.city }}, {{address.zipcode}}</li>
+      <li><span class="icon-user-outline"></span>{{ username }}</li>
+      <li><span class="icon-social-at-circular"></span>{{ email }}</li>
+      <li><span class="icon-phone-outline"></span>{{ phone }}</li>
+      <li><span class="icon-link-outline"></span> {{ website }}</li>
+      <li><span class="icon-location-arrow-outline"></span>{{ address.street }}, {{ address.suite }}, {{ address.city }}, {{address.zipcode}}</li>
 
     </ul>
   </address>
@@ -21,6 +21,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@import url('../assets/icons/style.css');
+h1 {
+  margin-top: 0;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 .card {
   background-color: #ffffff;
   border: 1px solid #dddddd;
