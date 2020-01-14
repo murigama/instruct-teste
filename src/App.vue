@@ -51,7 +51,7 @@ export default {
   methods: {
     getContacts () {
       axios
-      .get('http://jsonplaceholder.typicode.com/users')
+      .get('https://jsonplaceholder.typicode.com/users')
       .then(response => {
         this.contacts = response.data;
         let allDomains = response.data.map(function(contact) {
