@@ -16,7 +16,8 @@
       </div>
     </header>
     <section class="list-contacts">
-      <div class="content">
+      <Loading v-if="loading"></Loading>
+      <div class="content" v-if="!loading">
         <ContactCard v-for="contact in filteredContacts" v-bind:key= contact.id
           :name= "contact.name"
           :username = "contact.username"
@@ -34,6 +35,7 @@
 import axios from 'axios'
 
 import ContactCard from './components/ContactCard.vue'
+import Loading from './components/Loading.vue'
 
 export default {
   name: 'app',
@@ -76,7 +78,8 @@ export default {
     }
   },
   components: {
-    ContactCard
+    ContactCard,
+    Loading
   }
 }
 </script>
